@@ -75,7 +75,7 @@ export function BeautyFooter() {
         {/* Top row */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-12">
           {/* Brand */}
-          <div className="sm:col-span-2 md:col-span-5">
+          <div className="sm:col-span-2 md:col-span-3">
             <img
               src="https://res.cloudinary.com/df01whs60/image/upload/v1784270772/logo-transparent-png_zpzyfr.png"
               alt="Soni Makeover"
@@ -89,7 +89,7 @@ export function BeautyFooter() {
           </div>
 
           {/* Nav links */}
-          <nav className="md:col-span-4" aria-label="Footer">
+          <nav className="md:col-span-2" aria-label="Footer">
             <ul className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <li key={link.label}>
@@ -108,6 +108,22 @@ export function BeautyFooter() {
               ))}
             </ul>
           </nav>
+
+          {/* Google Map */}
+          <div className="md:col-span-4">
+            <div className="w-full overflow-hidden rounded-lg border border-neutral-200">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.123456789012!2d77.2090!3d28.6139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin"
+                width="100%"
+                height="280"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Soni Makeover Location"
+              />
+            </div>
+          </div>
 
           {/* Socials */}
           <div className="md:col-span-3 md:flex md:justify-end">
