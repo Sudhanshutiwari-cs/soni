@@ -88,15 +88,18 @@ export function BeautyShowcase() {
           </div>
 
           {/* Card 2: cream texture */}
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl md:mt-2">
-            <Image
-              src="https://res.cloudinary.com/df01whs60/image/upload/v1784375199/IMG_20251224_144604.jpg_bjt3dg.jpg"
-              alt="Bridal look by Soni Makeover"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
-          </div>
+  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl md:mt-2">
+  <div className="absolute inset-0">
+    <Image
+      src="https://res.cloudinary.com/df01whs60/image/upload/v1784375206/IMG-20260717-WA0003.jpg_r7u5ac.jpg"
+      alt="Bridal look by Soni Makeover"
+      fill
+      className="!h-full !w-full object-cover"
+      sizes="(max-width: 768px) 100vw, 33vw"
+      priority
+    />
+  </div>
+</div>
 
           {/* Card 3: heading + salon interior */}
           <div className="flex flex-col justify-end">
