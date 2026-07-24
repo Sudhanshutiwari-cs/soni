@@ -9,7 +9,7 @@ interface ExpandPanelProps {
 }
 
 /**
- * Smoothly animates height from 0 → auto when `open` toggles.
+ * Smoothly anidmates height from 0 → auto when `open` toggles.
  * Uses a ref to read the real scrollHeight so no fixed heights are needed.
  */
 export function ExpandPanel({ open, children, className = "" }: ExpandPanelProps) {
