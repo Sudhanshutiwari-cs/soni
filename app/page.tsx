@@ -153,14 +153,24 @@ function BookAppointment() {
               {/* Contact Details */}
               <div className="mt-8 pt-6 border-t border-pink-100">
                 <p className="text-sm text-gray-500 mb-4">Prefer to book by phone?</p>
-                <a href="tel:+12125550198" className="flex items-center gap-3 text-rose-500 hover:text-rose-600 transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-pink-50 border border-pink-200 flex items-center justify-center">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <span className="text-lg font-medium">+1 (212) 555-0198</span>
-                </a>
+                <div className="flex flex-col gap-3">
+                  <a href="tel:+918130767220" className="flex items-center gap-3 text-rose-500 hover:text-rose-600 transition-colors">
+                    <div className="w-10 h-10 rounded-full bg-pink-50 border border-pink-200 flex items-center justify-center shrink-0">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <span className="text-lg font-medium">+91 81307 67220</span>
+                  </a>
+                  <a href="tel:+917982601373" className="flex items-center gap-3 text-rose-500 hover:text-rose-600 transition-colors">
+                    <div className="w-10 h-10 rounded-full bg-pink-50 border border-pink-200 flex items-center justify-center shrink-0">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <span className="text-lg font-medium">+91 79826 01373</span>
+                  </a>
+                </div>
               </div>
 
               {/* Business Hours */}
@@ -173,16 +183,12 @@ function BookAppointment() {
                 </h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between text-gray-600">
-                    <span>Monday - Friday</span>
-                    <span className="font-medium">9:00 AM - 7:00 PM</span>
+                    <span>Monday - Saturday</span>
+                    <span className="font-medium">10:00 AM - 8:00 PM</span>
                   </div>
                   <div className="flex justify-between text-gray-600">
-                    <span>Saturday</span>
-                    <span className="font-medium">9:00 AM - 5:00 PM</span>
-                  </div>
-                  <div className="flex justify-between text-gray-400">
                     <span>Sunday</span>
-                    <span className="font-medium">Closed</span>
+                    <span className="font-medium">10:00 AM - 6:00 PM</span>
                   </div>
                 </div>
               </div>
