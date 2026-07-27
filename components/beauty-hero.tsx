@@ -152,8 +152,12 @@ export function BeautyHero() {
   return (
     <main className="relative min-h-svh w-full overflow-hidden bg-background text-foreground">
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} activeSection={activeSection} />
-      {/* Background slideshow — 4 images, cross-fade on slide change */}
-      <div className="absolute inset-0">
+      {/* ─────────────────────────────────────────
+          MOBILE HERO  (hidden on lg+)
+          Full-screen image slider, no text
+      ───────────────────────────────────────── */}
+      <div className="relative flex min-h-svh w-full flex-col lg:hidden">
+        {/* Slides */}
         {slides.map((s, i) => (
           <div
             key={s.src}
@@ -166,139 +170,216 @@ export function BeautyHero() {
               alt={s.alt}
               fill
               priority={i === 0}
-              className="object-cover object-top"
+              className="object-cover object-center"
             />
           </div>
         ))}
-        {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-background/10" />
-      </div>
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
-        {/* Navbar: left logo · center links · right CTA */}
-        <header className="flex items-center justify-between gap-4">
-          {/* Left: logo */}
-          <a href="#home" onClick={(e) => { e.preventDefault(); document.querySelector("#home")?.scrollIntoView({ behavior: "smooth" }) }}>
+        {/* Very subtle bottom vignette so dots stay readable */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/60 to-transparent" />
+
+        {/* Navbar pinned at top */}
+        <header className="relative z-10 flex items-center justify-between px-4 py-4">
+          <a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault()
+              document.querySelector("#home")?.scrollIntoView({ behavior: "smooth" })
+            }}
+          >
             <img
               src="https://res.cloudinary.com/df01whs60/image/upload/v1784270772/logo-transparent-png_zpzyfr.png"
               alt="Soni Makeover"
-              className="h-20 w-auto object-contain brightness-0 invert"
+              className="h-14 w-auto object-contain brightness-0 invert"
             />
           </a>
+          <button
+            type="button"
+            aria-label="Open menu"
+            onClick={() => setMenuOpen(true)}
+            className="flex size-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md"
+          >
+            <Menu className="size-5" />
+          </button>
+        </header>
 
-          {/* Center: nav links */}
-          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 p-1.5 backdrop-blur-md lg:flex">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.href.replace("#", "")
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    const target = document.querySelector(item.href)
-                    target?.scrollIntoView({ behavior: "smooth" })
-                  }}
-                  className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-primary-foreground text-primary"
-                      : "text-primary-foreground/90 hover:bg-primary-foreground/15"
-                  }`}
-                >
-                  {item.label}
-                </a>
-              )
-            })}
-          </nav>
+        {/* Bottom controls: arrow prev · dots · arrow next */}
+        <div className="relative z-10 mt-auto flex items-center justify-between px-5 pb-8">
+          {/* Prev */}
+          <button
+            type="button"
+            aria-label="Previous slide"
+            onClick={prev}
+            className="flex size-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md"
+          >
+            <ArrowLeft className="size-5" />
+          </button>
 
-          {/* Right: call CTA */}
+          {/* Dot indicators */}
           <div className="flex items-center gap-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Go to slide ${i + 1}`}
+                onClick={() => setSlide(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === slide
+                    ? "w-6 h-2 bg-white"
+                    : "w-2 h-2 bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Next */}
+          <button
+            type="button"
+            aria-label="Next slide"
+            onClick={next}
+            className="flex size-11 items-center justify-center rounded-full bg-white text-neutral-900"
+          >
+            <ArrowRight className="size-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* ─────────────────────────────────────────
+          DESKTOP HERO  (hidden below lg)
+          Original layout unchanged
+      ───────────────────────────────────────── */}
+      <div className="hidden lg:block">
+        {/* Background slideshow */}
+        <div className="absolute inset-0">
+          {slides.map((s, i) => (
+            <div
+              key={s.src}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                i === slide ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <Image
+                src={s.src}
+                alt={s.alt}
+                fill
+                priority={i === 0}
+                className="object-cover object-top"
+              />
+            </div>
+          ))}
+          {/* Overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-background/10" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-7xl flex-col px-4 py-5 sm:px-6 lg:px-8">
+          {/* Navbar */}
+          <header className="flex items-center justify-between gap-4">
+            <a href="#home" onClick={(e) => { e.preventDefault(); document.querySelector("#home")?.scrollIntoView({ behavior: "smooth" }) }}>
+              <img
+                src="https://res.cloudinary.com/df01whs60/image/upload/v1784270772/logo-transparent-png_zpzyfr.png"
+                alt="Soni Makeover"
+                className="h-20 w-auto object-contain brightness-0 invert"
+              />
+            </a>
+
+            <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 p-1.5 backdrop-blur-md">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.href.replace("#", "")
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" })
+                    }}
+                    className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+                      isActive
+                        ? "bg-primary-foreground text-primary"
+                        : "text-primary-foreground/90 hover:bg-primary-foreground/15"
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                )
+              })}
+            </nav>
+
             <a
               href="tel:+918130767220"
-              className="hidden items-center gap-2 rounded-full bg-primary-foreground px-5 py-3 text-sm font-semibold text-primary transition-opacity hover:opacity-90 sm:flex"
+              className="flex items-center gap-2 rounded-full bg-primary-foreground px-5 py-3 text-sm font-semibold text-primary transition-opacity hover:opacity-90"
             >
               <Phone className="size-4" />
               Call Now
             </a>
-            <button
-              type="button"
-              aria-label="Open menu"
-              onClick={() => setMenuOpen(true)}
-              className="flex size-11 items-center justify-center rounded-full border border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground backdrop-blur-md transition-colors hover:bg-primary-foreground/20 lg:hidden"
-            >
-              <Menu className="size-5" />
-            </button>
-          </div>
-        </header>
+          </header>
 
-        {/* Hero body */}
-        <div className="flex flex-1 flex-col justify-center py-10">
-          <div className="max-w-2xl">
-            <h1
-              key={slide}
-              className="animate-in fade-in slide-in-from-bottom-4 text-pretty text-4xl font-extrabold leading-tight text-primary-foreground duration-700 sm:text-5xl lg:text-6xl"
-            >
-              {slides[slide].heading}
-            </h1>
-            <p
-              key={`sub-${slide}`}
-              className="animate-in fade-in slide-in-from-bottom-3 mt-6 max-w-md text-sm leading-relaxed text-primary-foreground/75 duration-700"
-            >
-              {slides[slide].sub}
-            </p>
-          </div>
-
-
-        </div>
-
-        {/* Bottom section */}
-        <div className="flex flex-col gap-6">
-          {/* Services + pagination */}
-          <div className="flex flex-col gap-6 pb-2 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex flex-wrap gap-2">
-              {services.map((s) => (
-                <button
-                  key={s.label}
-                  type="button"
-                  className="flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-4 py-2.5 text-sm font-medium text-primary-foreground backdrop-blur-md transition-colors hover:bg-primary-foreground/20"
-                >
-                  <Sparkles className="size-4" />
-                  {s.label}
-                </button>
-              ))}
+          {/* Hero body */}
+          <div className="flex flex-1 flex-col justify-center py-10">
+            <div className="max-w-2xl">
+              <h1
+                key={slide}
+                className="animate-in fade-in slide-in-from-bottom-4 text-pretty text-4xl font-extrabold leading-tight text-primary-foreground duration-700 lg:text-6xl"
+              >
+                {slides[slide].heading}
+              </h1>
+              <p
+                key={`sub-${slide}`}
+                className="animate-in fade-in slide-in-from-bottom-3 mt-6 max-w-md text-sm leading-relaxed text-primary-foreground/75 duration-700"
+              >
+                {slides[slide].sub}
+              </p>
             </div>
+          </div>
 
-            <div className="flex items-center gap-4">
-              <span className="tabular-nums text-sm font-medium text-primary-foreground">
-                0{slide + 1}
-              </span>
-              <div className="relative h-px w-28 bg-primary-foreground/30 sm:w-40">
-                <span
-                  className="absolute left-0 top-0 h-px bg-primary-foreground transition-all duration-500"
-                  style={{ width: `${((slide + 1) / slides.length) * 100}%` }}
-                />
+          {/* Bottom section */}
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 pb-2 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex flex-wrap gap-2">
+                {services.map((s) => (
+                  <button
+                    key={s.label}
+                    type="button"
+                    className="flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-4 py-2.5 text-sm font-medium text-primary-foreground backdrop-blur-md transition-colors hover:bg-primary-foreground/20"
+                  >
+                    <Sparkles className="size-4" />
+                    {s.label}
+                  </button>
+                ))}
               </div>
-              <span className="tabular-nums text-sm font-medium text-primary-foreground/60">
-                0{slides.length}
-              </span>
-              <div className="ml-2 flex items-center gap-2">
-                <button
-                  type="button"
-                  aria-label="Previous slide"
-                  onClick={prev}
-                  className="flex size-10 items-center justify-center rounded-full border border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground backdrop-blur-md transition-colors hover:bg-primary-foreground/20"
-                >
-                  <ArrowLeft className="size-4" />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Next slide"
-                  onClick={next}
-                  className="flex size-10 items-center justify-center rounded-full bg-primary-foreground text-primary transition-opacity hover:opacity-90"
-                >
-                  <ArrowRight className="size-4" />
-                </button>
+
+              <div className="flex items-center gap-4">
+                <span className="tabular-nums text-sm font-medium text-primary-foreground">
+                  0{slide + 1}
+                </span>
+                <div className="relative h-px w-40 bg-primary-foreground/30">
+                  <span
+                    className="absolute left-0 top-0 h-px bg-primary-foreground transition-all duration-500"
+                    style={{ width: `${((slide + 1) / slides.length) * 100}%` }}
+                  />
+                </div>
+                <span className="tabular-nums text-sm font-medium text-primary-foreground/60">
+                  0{slides.length}
+                </span>
+                <div className="ml-2 flex items-center gap-2">
+                  <button
+                    type="button"
+                    aria-label="Previous slide"
+                    onClick={prev}
+                    className="flex size-10 items-center justify-center rounded-full border border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground backdrop-blur-md transition-colors hover:bg-primary-foreground/20"
+                  >
+                    <ArrowLeft className="size-4" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next slide"
+                    onClick={next}
+                    className="flex size-10 items-center justify-center rounded-full bg-primary-foreground text-primary transition-opacity hover:opacity-90"
+                  >
+                    <ArrowRight className="size-4" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
