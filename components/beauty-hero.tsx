@@ -156,7 +156,7 @@ export function BeautyHero() {
           MOBILE HERO  (hidden on lg+)
           Compact navbar + image slider card
       ───────────────────────────────────────── */}
-      <div className="flex w-full flex-col bg-background lg:hidden">
+      <div className="flex w-full flex-col bg-white lg:hidden">
         {/* Navbar */}
         <header className="flex items-center justify-between px-4 py-3">
           <a
@@ -169,14 +169,14 @@ export function BeautyHero() {
             <img
               src="https://res.cloudinary.com/df01whs60/image/upload/v1784270772/logo-transparent-png_zpzyfr.png"
               alt="Soni Makeover"
-              className="h-12 w-auto object-contain brightness-0 invert"
+              className="h-12 w-auto object-contain"
             />
           </a>
           <button
             type="button"
             aria-label="Open menu"
             onClick={() => setMenuOpen(true)}
-            className="flex size-9 items-center justify-center rounded-full border border-foreground/20 bg-foreground/10 text-foreground"
+            className="flex size-9 items-center justify-center rounded-full border border-neutral-200 bg-neutral-100 text-neutral-800"
           >
             <Menu className="size-4" />
           </button>
