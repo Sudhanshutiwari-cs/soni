@@ -150,7 +150,7 @@ export function BeautyHero() {
   }, [next])
 
   return (
-    <main className="relative min-h-svh w-full overflow-hidden bg-background text-foreground">
+    <main className="relative w-full overflow-hidden bg-background text-foreground">
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} activeSection={activeSection} />
       {/* ─────────────────────────────────────────
           MOBILE HERO  (hidden on lg+)
