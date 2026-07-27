@@ -154,32 +154,11 @@ export function BeautyHero() {
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} activeSection={activeSection} />
       {/* ─────────────────────────────────────────
           MOBILE HERO  (hidden on lg+)
-          Full-screen image slider, no text
+          Compact navbar + image slider card
       ───────────────────────────────────────── */}
-      <div className="relative flex min-h-svh w-full flex-col lg:hidden">
-        {/* Slides */}
-        {slides.map((s, i) => (
-          <div
-            key={s.src}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              i === slide ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <Image
-              src={s.src}
-              alt={s.alt}
-              fill
-              priority={i === 0}
-              className="object-cover object-center"
-            />
-          </div>
-        ))}
-
-        {/* Very subtle bottom vignette so dots stay readable */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/60 to-transparent" />
-
-        {/* Navbar pinned at top */}
-        <header className="relative z-10 flex items-center justify-between px-4 py-4">
+      <div className="flex w-full flex-col bg-background lg:hidden">
+        {/* Navbar */}
+        <header className="flex items-center justify-between px-4 py-3">
           <a
             href="#home"
             onClick={(e) => {
@@ -190,57 +169,76 @@ export function BeautyHero() {
             <img
               src="https://res.cloudinary.com/df01whs60/image/upload/v1784270772/logo-transparent-png_zpzyfr.png"
               alt="Soni Makeover"
-              className="h-14 w-auto object-contain brightness-0 invert"
+              className="h-12 w-auto object-contain brightness-0 invert"
             />
           </a>
           <button
             type="button"
             aria-label="Open menu"
             onClick={() => setMenuOpen(true)}
-            className="flex size-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md"
+            className="flex size-9 items-center justify-center rounded-full border border-foreground/20 bg-foreground/10 text-foreground"
           >
-            <Menu className="size-5" />
+            <Menu className="size-4" />
           </button>
         </header>
 
-        {/* Bottom controls: arrow prev · dots · arrow next */}
-        <div className="relative z-10 mt-auto flex items-center justify-between px-5 pb-8">
-          {/* Prev */}
-          <button
-            type="button"
-            aria-label="Previous slide"
-            onClick={prev}
-            className="flex size-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md"
-          >
-            <ArrowLeft className="size-5" />
-          </button>
-
-          {/* Dot indicators */}
-          <div className="flex items-center gap-2">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Go to slide ${i + 1}`}
-                onClick={() => setSlide(i)}
-                className={`rounded-full transition-all duration-300 ${
-                  i === slide
-                    ? "w-6 h-2 bg-white"
-                    : "w-2 h-2 bg-white/40"
+        {/* Slider card */}
+        <div className="mx-4 mb-4 overflow-hidden rounded-2xl">
+          {/* Image frame — fixed height */}
+          <div className="relative h-56 w-full">
+            {slides.map((s, i) => (
+              <div
+                key={s.src}
+                className={`absolute inset-0 transition-opacity duration-700 ${
+                  i === slide ? "opacity-100" : "opacity-0"
                 }`}
-              />
+              >
+                <Image
+                  src={s.src}
+                  alt={s.alt}
+                  fill
+                  priority={i === 0}
+                  className="object-cover object-center"
+                />
+              </div>
             ))}
-          </div>
 
-          {/* Next */}
-          <button
-            type="button"
-            aria-label="Next slide"
-            onClick={next}
-            className="flex size-11 items-center justify-center rounded-full bg-white text-neutral-900"
-          >
-            <ArrowRight className="size-5" />
-          </button>
+            {/* Bottom vignette for dot readability */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/50 to-transparent" />
+
+            {/* Dot indicators — inside image at bottom */}
+            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Go to slide ${i + 1}`}
+                  onClick={() => setSlide(i)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === slide ? "h-1.5 w-5 bg-white" : "h-1.5 w-1.5 bg-white/45"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Prev / Next arrow buttons — sides of image */}
+            <button
+              type="button"
+              aria-label="Previous slide"
+              onClick={prev}
+              className="absolute left-2 top-1/2 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
+            >
+              <ArrowLeft className="size-4" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next slide"
+              onClick={next}
+              className="absolute right-2 top-1/2 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm"
+            >
+              <ArrowRight className="size-4" />
+            </button>
+          </div>
         </div>
       </div>
 
