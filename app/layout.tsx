@@ -85,6 +85,9 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
   },
+  verification: {
+    google: 'hvWpTQAibdxdiGGHsTL7XtV5COkxWLUP2GrG-HnlePk',
+  },
   other: {
     'geo.region': 'IN-DL',
     'geo.placename': 'Najafgarh, Delhi',
